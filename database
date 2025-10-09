@@ -1,0 +1,65 @@
+-- auto-generated definition
+create table companies
+(
+    id          bigint auto_increment
+        primary key,
+    name        varchar(255) not null,
+    culture_fit text         null
+);
+
+
+create table feedbacks
+(
+    id       bigint auto_increment
+        primary key,
+    grade_id bigint not null,
+    text     text   not null,
+    constraint feedbacks_ibfk_1
+        foreign key (grade_id) references grades (id)
+);
+
+create table grades
+(
+    id         bigint auto_increment
+        primary key,
+    company_id bigint not null,
+    user_id    bigint not null,
+    value      float  not null comment '질문 별 점수의 평균',
+    evaluation text   not null,
+    constraint grades_ibfk_1
+        foreign key (company_id) references companies (id),
+    constraint grades_ibfk_2
+        foreign key (user_id) references users (id)
+);
+
+create table interview_questions
+(
+    id         bigint auto_increment
+        primary key,
+    company_id bigint      not null,
+    year       bigint      not null,
+    category   varchar(20) null,
+    question   text        null,
+    constraint interview_questions_ibfk_1
+        foreign key (company_id) references companies (id)
+);
+
+create table strengths
+(
+    id       bigint auto_increment
+        primary key,
+    grade_id bigint not null,
+    text     text   not null,
+    constraint strengths_ibfk_1
+        foreign key (grade_id) references grades (id)
+);
+
+create table users
+(
+    id         bigint auto_increment
+        primary key,
+    uid        varchar(50)            not null comment '로그인용',
+    password   text                   not null,
+    role       enum ('USER', 'ADMIN') not null,
+    star_count int default 0          not null
+);
