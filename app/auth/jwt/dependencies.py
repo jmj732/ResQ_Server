@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlmodel import Session, select
 from app.database import get_session
-from app.auth.models import User
+from app.user.model import User
 from .token import decode_access_token
 
 # Bearer 토큰 스키마

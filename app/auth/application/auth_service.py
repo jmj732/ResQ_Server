@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from app.auth.models import User, UserRole
+from app.user.model import User, UserRole
 from app.auth.dto.login_dto import LoginRequest, LoginResponse
 from app.auth.jwt import create_access_token, create_refresh_token
 from app.auth.security import verify_password, get_password_hash
